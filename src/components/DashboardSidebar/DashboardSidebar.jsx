@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { useAuth } from "../../providers/AuthProvider";
+import useAuth from "../../hooks/useAuth";
 
 export default function DashboardSidebar() {
     const { user } = useAuth();

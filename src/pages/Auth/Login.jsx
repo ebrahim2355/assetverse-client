@@ -1,12 +1,14 @@
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router";
-import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthContext";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
+import useAuth from "../../hooks/useAuth";
+import { ErrorMsg } from "../../components/ErrorMsg/ErrorMsg";
 
 export default function Login() {
-    const { signInUser, signInGoogle } = useContext(AuthContext);
-    const { register, handleSubmit } = useForm();
+    const { signInUser } = useAuth();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
 
     const onSubmit = ({ email, password }) => {
@@ -18,18 +20,7 @@ export default function Login() {
             .catch((err) =>
                 Swal.fire("Error!", err.message, "error")
             );
-    };
-
-    const handleGoogleLogin = () => {
-        signInGoogle()
-            .then(() => {
-                Swal.fire("Success", "Logged in with Google!", "success");
-                navigate("/dashboard");
-            })
-            .catch((err) =>
-                Swal.fire("Error!", err.message, "error")
-            );
-    };
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center px-4">
@@ -40,12 +31,13 @@ export default function Login() {
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 
                     <input
-                        {...register("email")}
+                        {...register("email", { required: true })}
                         type="email"
                         placeholder="Email"
                         className="input input-bordered w-full"
                         required
                     />
+                    <ErrorMsg error={errors.email} />
 
                     <input
                         {...register("password")}
@@ -58,19 +50,15 @@ export default function Login() {
                     <button className="btn btn-primary w-full">Login</button>
                 </form>
 
-                <div className="divider">OR</div>
+                <SocialLogin></SocialLogin>
 
-                <button onClick={handleGoogleLogin} className="btn btn-outline w-full">
-                    Continue with Google
-                </button>
-
-                <p className="text-center mt-4">
+                <p className="text-center mt-4 ">
                     Don't have an account?
-                    <Link className="text-primary ml-1" to="/register-employee">
+                    <Link className="text-primary ml-1 hover:underline" to="/register-employee">
                         Join as Employee
                     </Link>
-                    {" "}or{" "}
-                    <Link className="text-primary" to="/register-hr">
+                    <span> or </span>
+                    <Link className="text-primary hover:underline" to="/register-hr">
                         Join as HR
                     </Link>
                 </p>

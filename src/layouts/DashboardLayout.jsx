@@ -1,9 +1,9 @@
-import DashboardSidebar from "../components/nav/DashboardSidebar";
 import { Outlet } from "react-router";
+import DashboardSidebar from "../components/DashboardSidebar/DashboardSidebar";
 
 export default function DashboardLayout() {
     return (
-        <div className="flex min-h-screen bg-base-200">
+        <div className="flex min-h-screen">
 
             {/* Sidebar */}
             <DashboardSidebar />

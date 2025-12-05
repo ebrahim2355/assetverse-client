@@ -9,7 +9,7 @@ export default function RegisterEmployee() {
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
 
-    const onSubmit = ({ name, email, password, dob }) => {
+    const onSubmit = ({ name, email, password}) => {
         registerUser(email, password)
             .then(() => {
                 return updateUserProfile({ displayName: name });
@@ -22,7 +22,7 @@ export default function RegisterEmployee() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
+        <div className="min-h-screen flex items-center justify-center px-4">
             <div className="card bg-base-100 w-full max-w-md shadow-xl p-6">
 
                 <h2 className="text-2xl font-bold text-center mb-4">Employee Registration</h2>

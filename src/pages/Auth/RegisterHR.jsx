@@ -9,7 +9,7 @@ export default function RegisterHR() {
     const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
 
-    const onSubmit = async ({ name, companyName, email, dob, password }) => {
+    const onSubmit = async ({ name, email, password }) => {
         registerUser(email, password)
             .then(() => updateUserProfile({ displayName: name }))
             .then(() => {
@@ -20,7 +20,7 @@ export default function RegisterHR() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
+        <div className="min-h-screen flex items-center justify-center px-4">
             <div className="card bg-base-100 w-full max-w-md shadow-xl p-6">
 
                 <h2 className="text-2xl font-bold text-center mb-4">HR Manager Registration</h2>
