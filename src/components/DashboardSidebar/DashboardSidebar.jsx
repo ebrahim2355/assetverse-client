@@ -10,16 +10,16 @@ export default function DashboardSidebar() {
     return (
         <aside className="w-64 bg-base-100 shadow-md min-h-screen">
 
-            <div className="p-4 text-xl font-bold border-b">
+            <div className="p-4 text-2xl font-bold border-b text-primary">
                 Dashboard
             </div>
 
-            <ul className="menu p-4">
+            <ul className="menu w-full text-xl p-4">
 
                 {/* EMPLOYEE SIDEBAR */}
                 {role === "employee" && (
                     <>
-                        <li><Link to="/dashboard/employee/my-assets">My Assets</Link></li>
+                        <li><Link className="" to="/dashboard/employee/my-assets">My Assets</Link></li>
                         <li><Link to="/dashboard/employee/request-asset">Request Asset</Link></li>
                         <li><Link to="/dashboard/employee/my-team">My Team</Link></li>
                         <li><Link to="/dashboard/employee/profile">Profile</Link></li>

@@ -35,9 +35,9 @@ export default function DashboardLayout() {
             <div className="flex-1 flex flex-col">
 
                 {/* Top Bar inside dashboard */}
-                <div className="w-full bg-base-100 p-4 shadow flex items-center gap-4 lg:hidden">
+                <div className="w-full bg-base-100 p-3 shadow flex items-center gap-4 lg:hidden">
                     <button
-                        className="text-2xl"
+                        className="text-2xl cursor-pointer hover:bg-base-300 p-2 rounded-full"
                         onClick={() => setIsOpen(true)}
                     >
                         <FaBars />

@@ -7,6 +7,8 @@ import RegisterHR from "../pages/Auth/RegisterHR";
 import Unauthorized from "../pages/Shared/Unauthorized";
 import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
+import RoleBasedDashboard from "./RoleBasedDashboard";
+import MyAssets from "../pages/Dashboard/Employee/MyAssets/MyAssets";
 
 export const router = createBrowserRouter([
     {
@@ -37,6 +39,16 @@ export const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+        children: [
+            {
+                index: true,
+                element: <RoleBasedDashboard></RoleBasedDashboard>
+            },
+            {
+                path: "employee/my-assets",
+                element: <MyAssets></MyAssets>
+            }
+        ]
     }
 ])
