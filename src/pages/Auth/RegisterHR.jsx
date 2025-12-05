@@ -5,22 +5,61 @@ import Swal from "sweetalert2";
 import { Link, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
+import useAxios from "../../hooks/useAxios";
 
 export default function RegisterHR() {
     const { registerUser, updateUserProfile } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
+    const axiosInstance = useAxios();
 
-    const onSubmit = async ({ name, email, password }) => {
-        registerUser(email, password)
-            .then(() => updateUserProfile({ displayName: name }))
-            .then(() => {
-                toast.success("Success!", "HR Manager registered successfully", "success");
-                navigate("/dashboard/hr/assets");
+    const handleRegisterHR = async (data) => {
+        const profileImg = data.photo[0];
+
+        await registerUser(data.email, data.password)
+            .then(async () => {
+                const formData = new FormData();
+                formData.append("image", profileImg);
+
+                const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`
+
+                await axios.post(image_API_URL, formData)
+                    .then(async res => {
+                        const photoURL = res.data.data.url;
+
+                        const userInfo = {
+                            email: data.email,
+                            displayName: data.name,
+                            companyName: data.companyName,
+                            companyLogo: photoURL,
+                            password: data.password,
+                            dateOfBirth: data.dateOfBirth
+                        }
+                        await axiosInstance.post("/users/hr", userInfo)
+                            .then(res => {
+                                if (res.data.insertedId) {
+                                    console.log("user created")
+                                }
+                            })
+                        const userProfile = {
+                            displayName: data.name,
+                            photoURL: photoURL
+                        }
+
+                        updateUserProfile(userProfile)
+                            .then(() => {
+                                toast.success("Success! HR registered successfully");
+                                navigate("/dashboard/hr/assets");
+                            })
+                    })
+
+
             })
-            .catch((err) => toast.error("Error! Could't register your account, try again please!", err.message, "error"));
-    };
+
+            .catch(() => toast.error("Error! Could't register your account, try again please!"));
+    }
 
     return (
         <div className="min-h-screen flex items-center justify-center px-4">
@@ -28,10 +67,10 @@ export default function RegisterHR() {
 
                 <h2 className="text-2xl font-bold text-center mb-4">HR Manager Registration</h2>
 
-                <form onSubmit={handleSubmit(onSubmit)} className="">
+                <form onSubmit={handleSubmit(handleRegisterHR)}>
 
                     <label className="label text-sm font-medium">Your Photo</label>
-                    <input type="file" {...register("photo")} className="w-full file-input mb-2" placeholder="Your Photo" required/>
+                    <input type="file" {...register("photo")} className="w-full file-input mb-2" placeholder="Your Photo" required />
 
                     <label className="label text-sm font-medium">Your Full Name</label>
                     <input
@@ -95,7 +134,7 @@ export default function RegisterHR() {
 
                     <label className="label text-sm font-medium">Your Date of Birth</label>
                     <input
-                        {...register("dob")}
+                        {...register("dateOfBirth")}
                         type="date"
                         className="input input-bordered w-full mb-4"
                         required

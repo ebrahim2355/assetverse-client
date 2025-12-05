@@ -1,8 +1,11 @@
 import { Link } from "react-router";
-import useAuth from "../../hooks/useAuth";
+import useRole from "../../hooks/useRole";
+import Loading from "../../pages/Shared/Loading";
 
 export default function DashboardSidebar() {
-    const { user } = useAuth();
+    const { role, roleLoading } = useRole();
+
+    if (roleLoading) return <Loading />;
 
     return (
         <aside className="w-64 bg-base-100 shadow-md min-h-screen">
@@ -12,7 +15,9 @@ export default function DashboardSidebar() {
             </div>
 
             <ul className="menu p-4">
-                {user?.role === "employee" && (
+
+                {/* EMPLOYEE SIDEBAR */}
+                {role === "employee" && (
                     <>
                         <li><Link to="/dashboard/employee/my-assets">My Assets</Link></li>
                         <li><Link to="/dashboard/employee/request-asset">Request Asset</Link></li>
@@ -21,7 +26,8 @@ export default function DashboardSidebar() {
                     </>
                 )}
 
-                {user?.role === "hr" && (
+                {/* HR SIDEBAR */}
+                {role === "hr" && (
                     <>
                         <li><Link to="/dashboard/hr/assets">Asset List</Link></li>
                         <li><Link to="/dashboard/hr/add-asset">Add Asset</Link></li>

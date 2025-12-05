@@ -1,7 +1,21 @@
-import { Navigate } from "react-router";
-import { useAuth } from "../providers/AuthProvider";
+import useAuth from "../hooks/useAuth";
+import useRole from "../hooks/useRole";
+import Forbidden from "../pages/Shared/Forbidden";
+import Loading from "../pages/Shared/Loading";
 
-export default function AdminRoute({ children }) {
-    const { user } = useAuth();
-    return user?.role === "hr" ? children : <Navigate to="/unauthorized" replace />;
-}
+const AdminRoute = ({ children }) => {
+    const { loading } = useAuth();
+    const { role, roleLoading } = useRole();
+
+    if (loading || roleLoading) {
+        return <Loading></Loading>
+    }
+
+    if (role !== "hr") {
+        return <Forbidden />
+    }
+
+    return children;
+};
+
+export default AdminRoute;

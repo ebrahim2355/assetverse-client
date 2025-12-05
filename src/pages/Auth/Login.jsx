@@ -1,10 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router";
-import { AuthContext } from "../../providers/AuthContext";
-import Swal from "sweetalert2";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import useAuth from "../../hooks/useAuth";
 import { ErrorMsg } from "../../components/ErrorMsg/ErrorMsg";
+import toast from "react-hot-toast";
 
 export default function Login() {
     const { signInUser } = useAuth();
@@ -14,11 +13,11 @@ export default function Login() {
     const onSubmit = ({ email, password }) => {
         signInUser(email, password)
             .then(() => {
-                Swal.fire("Success", "Logged in successfully!", "success");
+                toast.success("Success! Logged in successfully!");
                 navigate("/dashboard");
             })
-            .catch((err) =>
-                Swal.fire("Error!", err.message, "error")
+            .catch(() =>
+                toast.error("Error! Could't log you in! Try again please.")
             );
     }
 
