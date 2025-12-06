@@ -11,6 +11,7 @@ import RoleBasedDashboard from "./RoleBasedDashboard";
 import MyAssets from "../pages/Dashboard/Employee/MyAssets/MyAssets";
 import RequestAsset from "../pages/Dashboard/Employee/RequestAsset/RequestAsset";
 import MyTeam from "../pages/Dashboard/Employee/MyTeam/MyTeam";
+import EmployeeProfile from "../pages/Dashboard/Employee/EmployeeProfile/EmployeeProfile";
 
 export const router = createBrowserRouter([
     {
@@ -60,7 +61,8 @@ export const router = createBrowserRouter([
                 element: <MyTeam></MyTeam>
             },
             {
-                path: "employee/profile"
+                path: "employee/profile",
+                element: <EmployeeProfile></EmployeeProfile>
             }
         ]
     }
