@@ -9,6 +9,7 @@ import PrivateRoute from "./PrivateRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
 import RoleBasedDashboard from "./RoleBasedDashboard";
 import MyAssets from "../pages/Dashboard/Employee/MyAssets/MyAssets";
+import RequestAsset from "../pages/Dashboard/Employee/RequestAsset/RequestAsset";
 
 export const router = createBrowserRouter([
     {
@@ -48,6 +49,16 @@ export const router = createBrowserRouter([
             {
                 path: "employee/my-assets",
                 element: <MyAssets></MyAssets>
+            },
+            {
+                path: "employee/request-asset",
+                element: <RequestAsset></RequestAsset>
+            },
+            {
+                path: "employee/my-team"
+            },
+            {
+                path: "employee/profile"
             }
         ]
     }
