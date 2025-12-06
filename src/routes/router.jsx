@@ -14,6 +14,10 @@ import MyTeam from "../pages/Dashboard/Employee/MyTeam/MyTeam";
 import EmployeeProfile from "../pages/Dashboard/Employee/EmployeeProfile/EmployeeProfile";
 import GoogleRegister from "../pages/Auth/GoogleRegister";
 import EmployeeRoute from "./EmployeeRoute";
+import AdminRoute from "./AdminRoute";
+import AssetList from "../pages/Dashboard/HR/AssetList/AssetList";
+import EditAsset from "../pages/Dashboard/HR/EditAsset/EditAsset";
+import AddAsset from "../pages/Dashboard/HR/AddAsset/AddAsset";
 
 export const router = createBrowserRouter([
     {
@@ -69,6 +73,18 @@ export const router = createBrowserRouter([
             {
                 path: "employee/profile",
                 element: <EmployeeProfile></EmployeeProfile>
+            },
+            {
+                path: "hr/assets",
+                element: <AdminRoute><AssetList></AssetList></AdminRoute>
+            },
+            {
+                path: "hr/edit-asset/:id",
+                element: <AdminRoute><EditAsset></EditAsset></AdminRoute>
+            },
+            {
+                path: "hr/add-asset",
+                element: <AdminRoute><AddAsset></AddAsset></AdminRoute>
             }
         ]
     }
