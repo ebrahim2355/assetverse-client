@@ -48,7 +48,7 @@ export default function RequestAsset() {
                 setSelectedAsset(null);
                 setNote("");
             }
-        } catch (err) {
+        } catch {
             toast.error("Failed to submit request.");
         }
     };
