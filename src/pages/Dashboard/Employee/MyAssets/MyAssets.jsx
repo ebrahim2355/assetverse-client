@@ -104,7 +104,7 @@ export default function MyAssets() {
                                             <span
                                                 className={`badge ${asset.assetType === "Returnable"
                                                     ? "badge-primary"
-                                                    : "badge-secondary"
+                                                    : "badge-secondary whitespace-nowrap"
                                                     }`}
                                             >
                                                 {asset.assetType}
@@ -129,7 +129,7 @@ export default function MyAssets() {
                                                     Return
                                                 </button>
                                             ) : (
-                                                <span className="text-gray-400 text-sm">N/A</span>
+                                                <span className="text-gray-400 text-sm btn">Not Returnable</span>
                                             )}
                                         </td>
                                     </tr>

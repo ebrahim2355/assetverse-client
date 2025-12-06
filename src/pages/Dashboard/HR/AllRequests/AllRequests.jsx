@@ -37,12 +37,26 @@ export default function AllRequests() {
                     $inc: { availableQuantity: -1 }
                 });
 
-                await axiosSecure.post("/affiliations", {
-                    employeeEmail: reqItem.requesterEmail,
-                    employeeName: reqItem.requesterName,
-                    hrEmail: reqItem.hrEmail,
-                    companyName: reqItem.companyName
-                });
+                const affCheck = await axiosSecure.get(
+                    `/affiliations/employee/${reqItem.requesterEmail}`
+                );
+
+                const alreadyAffiliated = affCheck.data.some(
+                    a => a.hrEmail === reqItem.hrEmail
+                );
+
+                if (!alreadyAffiliated) {
+                    await axiosSecure.post("/affiliations", {
+                        employeeEmail: reqItem.requesterEmail,
+                        employeeName: reqItem.requesterName,
+                        hrEmail: reqItem.hrEmail,
+                        companyName: reqItem.companyName
+                    });
+
+                    await axiosSecure.patch(`/users/${reqItem.hrEmail}`, {
+                        $inc: { currentEmployees: 1 }
+                    });
+                }
 
                 await axiosSecure.post("/assigned-assets", {
                     assetId: reqItem.assetId,
@@ -62,11 +76,13 @@ export default function AllRequests() {
 
                 Swal.fire("Approved!", "Request approved successfully.", "success");
                 refetch();
+
             } catch (error) {
                 Swal.fire("Error!", error.response?.data?.error || "Something went wrong!", "error");
             }
         });
     };
+
 
     /* ------------------ REJECT ------------------ */
     const handleReject = async (id) => {
@@ -138,10 +154,10 @@ export default function AllRequests() {
                                 <td>
                                     <span
                                         className={`badge ${req.requestStatus === "pending"
-                                                ? "badge-warning"
-                                                : req.requestStatus === "approved"
-                                                    ? "badge-success"
-                                                    : "badge-error"
+                                            ? "badge-warning"
+                                            : req.requestStatus === "approved"
+                                                ? "badge-success"
+                                                : "badge-error"
                                             }`}
                                     >
                                         {req.requestStatus}
@@ -213,10 +229,10 @@ export default function AllRequests() {
                             <span className="font-semibold">Status:</span>{" "}
                             <span
                                 className={`badge ${req.requestStatus === "pending"
-                                        ? "badge-warning"
-                                        : req.requestStatus === "approved"
-                                            ? "badge-success"
-                                            : "badge-error"
+                                    ? "badge-warning"
+                                    : req.requestStatus === "approved"
+                                        ? "badge-success"
+                                        : "badge-error"
                                     }`}
                             >
                                 {req.requestStatus}
