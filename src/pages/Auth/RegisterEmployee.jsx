@@ -51,7 +51,7 @@ export default function RegisterEmployee() {
                         updateUserProfile(userProfile)
                             .then(() => {
                                 toast.success("Success! Employee registered successfully");
-                                navigate("/dashboard/employee/my-assets");
+                                navigate("/dashboard");
                             })
                     })
 

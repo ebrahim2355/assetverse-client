@@ -51,7 +51,7 @@ export default function RegisterHR() {
                         updateUserProfile(userProfile)
                             .then(() => {
                                 toast.success("Success! HR registered successfully");
-                                navigate("/dashboard/hr/assets");
+                                navigate("/dashboard");
                             })
                     })
 

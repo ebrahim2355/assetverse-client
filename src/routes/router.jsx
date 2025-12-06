@@ -12,6 +12,8 @@ import MyAssets from "../pages/Dashboard/Employee/MyAssets/MyAssets";
 import RequestAsset from "../pages/Dashboard/Employee/RequestAsset/RequestAsset";
 import MyTeam from "../pages/Dashboard/Employee/MyTeam/MyTeam";
 import EmployeeProfile from "../pages/Dashboard/Employee/EmployeeProfile/EmployeeProfile";
+import GoogleRegister from "../pages/Auth/GoogleRegister";
+import EmployeeRoute from "./EmployeeRoute";
 
 export const router = createBrowserRouter([
     {
@@ -25,6 +27,10 @@ export const router = createBrowserRouter([
             {
                 path: "login",
                 element: <Login></Login>
+            },
+            {
+                path: "google-register",
+                element: <GoogleRegister></GoogleRegister>
             },
             {
                 path: "register-employee",
@@ -50,15 +56,15 @@ export const router = createBrowserRouter([
             },
             {
                 path: "employee/my-assets",
-                element: <MyAssets></MyAssets>
+                element: <EmployeeRoute><MyAssets></MyAssets></EmployeeRoute>
             },
             {
                 path: "employee/request-asset",
-                element: <RequestAsset></RequestAsset>
+                element: <EmployeeRoute><RequestAsset></RequestAsset></EmployeeRoute>
             },
             {
                 path: "employee/my-team",
-                element: <MyTeam></MyTeam>
+                element: <EmployeeRoute><MyTeam></MyTeam></EmployeeRoute>
             },
             {
                 path: "employee/profile",

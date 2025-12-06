@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet } from "react-router";
+import { Link, Outlet } from "react-router";
 import { FaBars } from "react-icons/fa";
 import DashboardSidebar from "../components/DashboardSidebar/DashboardSidebar";
 
@@ -42,7 +42,9 @@ export default function DashboardLayout() {
                     >
                         <FaBars />
                     </button>
-                    <h2 className="text-lg font-semibold">Dashboard</h2>
+                    <h2 className="text-lg font-semibold">
+                        <Link to={"/dashboard"}>Dashboard</Link>
+                    </h2>
                 </div>
 
                 {/* CONTENT */}

@@ -15,7 +15,7 @@ export default function Forbidden() {
     };
 
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center text-center bg-base-200 px-4">
+        <div className=" flex flex-col items-center justify-center text-center bg-base-200 px-4">
 
             {/* Lottie Animation */}
             <div className="w-full max-w-md">
@@ -32,8 +32,8 @@ export default function Forbidden() {
             </p>
 
             {/* Button */}
-            <Link to="/" className="btn btn-primary mt-6">
-                Go Back Home
+            <Link to="/dashboard" className="btn btn-primary mt-6">
+                Go Back to Dashboard
             </Link>
         </div>
     );

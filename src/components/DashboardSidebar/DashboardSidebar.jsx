@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import useRole from "../../hooks/useRole";
 import Loading from "../../pages/Shared/Loading";
 
@@ -12,11 +12,11 @@ export default function DashboardSidebar() {
         "bg-primary text-white font-semibold rounded-lg";
 
     return (
-        <aside className="w-64 bg-base-100 shadow-md min-h-screen">
+        <aside className="w-64 bg-base-100 shadow-md min-h-screen h-full">
 
             {/* Title */}
             <div className="p-4 text-2xl font-bold border-b text-primary">
-                Dashboard
+                <Link to={"/dashboard"}>Dashboard</Link>
             </div>
 
             <ul className="menu w-full p-4 text-lg">
