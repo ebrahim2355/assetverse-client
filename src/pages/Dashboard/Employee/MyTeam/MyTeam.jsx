@@ -97,7 +97,7 @@ export default function MyTeam() {
                     <ul className="list-disc ml-6">
                         {upcomingBirthdays.map(m => (
                             <li key={m.email} className="text-sm">
-                                {m.name} — {new Date(m.dateOfBirth).toLocaleDateString()}
+                                {m.displayName} — {new Date(m.dateOfBirth).toLocaleDateString()}
                             </li>
                         ))}
                     </ul>

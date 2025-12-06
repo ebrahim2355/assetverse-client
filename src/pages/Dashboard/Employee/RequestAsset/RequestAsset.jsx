@@ -31,6 +31,7 @@ export default function RequestAsset() {
             assetId: selectedAsset._id,
             assetName: selectedAsset.productName,
             assetType: selectedAsset.productType,
+            assetImage: selectedAsset.productImage,
             requesterName: user.displayName,
             requesterEmail: user.email,
             hrEmail: selectedAsset.hrEmail,

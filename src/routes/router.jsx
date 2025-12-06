@@ -18,6 +18,7 @@ import AdminRoute from "./AdminRoute";
 import AssetList from "../pages/Dashboard/HR/AssetList/AssetList";
 import EditAsset from "../pages/Dashboard/HR/EditAsset/EditAsset";
 import AddAsset from "../pages/Dashboard/HR/AddAsset/AddAsset";
+import AllRequests from "../pages/Dashboard/HR/AllRequests/AllRequests";
 
 export const router = createBrowserRouter([
     {
@@ -85,6 +86,10 @@ export const router = createBrowserRouter([
             {
                 path: "hr/add-asset",
                 element: <AdminRoute><AddAsset></AddAsset></AdminRoute>
+            },
+            {
+                path: "hr/requests",
+                element: <AdminRoute><AllRequests></AllRequests></AdminRoute>
             }
         ]
     }

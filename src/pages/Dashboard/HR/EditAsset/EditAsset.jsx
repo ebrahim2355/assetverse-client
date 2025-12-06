@@ -82,7 +82,7 @@ export default function EditAsset() {
                 toast("No changes detected");
             }
 
-        } catch (err) {
+        } catch {
             toast.error("Failed to update asset!");
         }
     };

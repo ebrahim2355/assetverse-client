@@ -4,7 +4,6 @@ import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import useAuth from "../../../../hooks/useAuth";
 import Loading from "../../../Shared/Loading";
 import { Link } from "react-router";
-import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 
 export default function AssetList() {
@@ -141,7 +140,7 @@ export default function AssetList() {
                                     <span
                                         className={`badge ${asset.productType === "Returnable"
                                             ? "badge-primary"
-                                            : "badge-secondary"
+                                            : "badge-secondary whitespace-nowrap"
                                             }`}
                                     >
                                         {asset.productType}
