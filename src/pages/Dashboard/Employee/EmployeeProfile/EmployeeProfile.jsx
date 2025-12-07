@@ -32,7 +32,16 @@ export default function EmployeeProfile() {
         }
     }, [profile, reset])
 
-    if (isLoading) return <Loading />;
+    const { data: affiliations = [], isLoading: affLoading } = useQuery({
+        queryKey: ["employee-affiliations", user?.email],
+        enabled: !!user?.email,
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/affiliations/employee/${user.email}`);
+            return res.data;
+        }
+    });
+
+    if (isLoading || affLoading) return <Loading />;
 
     const onSubmit = async (data) => {
         try {
@@ -55,7 +64,7 @@ export default function EmployeeProfile() {
                 photoURL,
             };
 
-            const res = await axiosSecure.patch(`/users/${user.email}`, {$set: userInfo});
+            const res = await axiosSecure.patch(`/users/${user.email}`, { $set: userInfo });
 
             if (res.data.modifiedCount > 0) {
                 toast.success("Profile updated!");
@@ -129,6 +138,29 @@ export default function EmployeeProfile() {
                         className="input input-bordered w-full"
                         defaultValue={profile.dateOfBirth}
                     />
+                </div>
+
+                {/* COMPANY AFFILIATIONS */}
+                <div className="bg-base-200 p-4 rounded-lg">
+                    <h3 className="font-semibold text-xl mb-3">My Company Affiliations</h3>
+
+                    {affiliations.length === 0 ? (
+                        <p className="text-gray-600">You are not affiliated with any company yet.</p>
+                    ) : (
+                        <div className="space-y-4">
+                            {affiliations.map((hr, idx) => (
+                                <div
+                                    key={idx}
+                                    className="flex items-center gap-4 bg-base-100 p-3 rounded-lg shadow"
+                                >
+                                    <div>
+                                        <h4 className="font-bold text-lg">{hr.companyName}</h4>
+                                        <p className="text-sm text-gray-600">HR Email: {hr.hrEmail}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
 
                 {/* SUBMIT BTN */}

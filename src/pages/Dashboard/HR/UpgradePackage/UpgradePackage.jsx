@@ -8,8 +8,8 @@ export default function UpgradePackage() {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
 
-    // Fetch HR profile to get current package info
-    const { data: profile = {}, isLoading } = useQuery({
+    // Fetch HR profile
+    const { data: profile = {}, isLoading: profileLoading } = useQuery({
         queryKey: ["hr-profile", user?.email],
         enabled: !!user?.email,
         queryFn: async () => {
@@ -18,35 +18,22 @@ export default function UpgradePackage() {
         }
     });
 
-    if (isLoading) return <Loading />;
+    // Fetch packages dynamically
+    const { data: packages = [], isLoading: packagesLoading } = useQuery({
+        queryKey: ["packages"],
+        queryFn: async () => {
+            const res = await axiosSecure.get("/packages");
+            return res.data;
+        }
+    });
 
-    const packages = [
-        {
-            name: "Basic",
-            price: 0,
-            employees: 5,
-            description: "Default package for new HR accounts.",
-            disabled: true
-        },
-        {
-            name: "Standard",
-            price: 20,
-            employees: 15,
-            description: "Perfect for growing teams.",
-        },
-        {
-            name: "Premium",
-            price: 50,
-            employees: 50,
-            description: "Best for companies scaling quickly."
-        },
-    ];
+    if (profileLoading || packagesLoading) return <Loading />;
 
     // ---------- HANDLE PAYMENT ----------
     const handleUpgrade = async (pack) => {
         Swal.fire({
             title: `Upgrade to ${pack.name}?`,
-            text: `This will increase your employee limit to ${pack.employees}.`,
+            text: `This will increase your employee limit to ${pack.employeeLimit}.`,
             icon: "question",
             showCancelButton: true,
             confirmButtonText: "Proceed",
@@ -55,24 +42,24 @@ export default function UpgradePackage() {
             if (!result.isConfirmed) return;
 
             try {
-                // Create checkout session
                 const res = await axiosSecure.post("/create-checkout-session", {
                     packageName: pack.name,
                     price: pack.price,
                     email: profile.email,
-                    employeeLimit: pack.employees
+                    employeeLimit: pack.employeeLimit,
                 });
 
-                if (res.data.url) {
-                    // Redirect to Stripe Checkout
-                    window.location.href = res.data.url;
-                }
+                if (res.data.url) window.location.href = res.data.url;
 
             } catch (error) {
                 Swal.fire("Error", error.response?.data?.error || "Something went wrong", "error");
             }
         });
     };
+
+    const currentPack = packages.find(p => p.name === profile.subscription);
+    const currentOrder = currentPack?.order || 1;
+
 
     return (
         <div className="w-full">
@@ -86,12 +73,13 @@ export default function UpgradePackage() {
                 <p><strong>Current Employees:</strong> {profile.currentEmployees}</p>
             </div>
 
-            {/* Packages Grid */}
+            {/* Package Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {packages.map((pack) => (
+                {packages.map(pack => (
                     <div
-                        key={pack.name}
-                        className={`card shadow-lg border p-5 ${profile.subscription === pack.name ? "bg-base-200" : "bg-base-100"}`}
+                        key={pack._id}
+                        className={`card shadow-lg border p-5 ${profile.subscription === pack.name ? "bg-base-200" : "bg-base-100"
+                            }`}
                     >
                         <h3 className="text-2xl font-bold">{pack.name}</h3>
                         <p className="flex-1 text-gray-600 mt-1">{pack.description}</p>
@@ -99,21 +87,21 @@ export default function UpgradePackage() {
                         <div className="mt-4">
                             <p className="text-xl font-semibold">${pack.price} / month</p>
                             <p className="text-sm text-gray-500">
-                                Employee limit: {pack.employees}
+                                Employee limit: {pack.employeeLimit}
                             </p>
                         </div>
 
-                        {profile.subscription === pack.name ? (
-                            <button className="btn btn-disabled mt-4">Current Plan</button>
+                        {pack.order <= currentOrder ? (
+                            <button className="btn btn-disabled mt-4">Upgraded</button>
                         ) : (
                             <button
                                 className="btn btn-primary mt-4"
-                                disabled={pack.disabled}
                                 onClick={() => handleUpgrade(pack)}
                             >
                                 Upgrade
                             </button>
                         )}
+
                     </div>
                 ))}
             </div>

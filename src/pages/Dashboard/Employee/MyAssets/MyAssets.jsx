@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../../hooks/useAuth";
 import useAxiosSecure from "../../../../hooks/useAxiosSecure";
 import Loading from "../../../Shared/Loading";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 export default function MyAssets() {
     const { user } = useAuth();
@@ -38,6 +40,77 @@ export default function MyAssets() {
         console.log("Return asset:", id);
     }
 
+    function handlePrintPDF(assets) {
+        const doc = new jsPDF("p", "pt", "a4");
+
+        const primaryColor = [52, 63, 180];
+        const lightGray = [240, 240, 240];
+
+        doc.setFillColor(...primaryColor);
+        doc.rect(0, 0, doc.internal.pageSize.width, 60, "F");
+
+        doc.setTextColor(255, 255, 255);
+        doc.setFontSize(22);
+        doc.text("AssetVerse - Assigned Assets Report", 40, 38);
+
+        doc.setTextColor(0, 0, 0);
+        doc.setFontSize(12);
+        doc.text(`Generated for: ${user?.email}`, 40, 80);
+        doc.text(`Generated on: ${new Date().toLocaleString()}`, 40, 95);
+
+        const tableColumn = [
+            "Asset Name",
+            "Type",
+            "Company",
+            "Assigned Date",
+            "Status"
+        ];
+
+        const tableRows = assets.map(asset => [
+            asset.assetName,
+            asset.assetType,
+            asset.companyName,
+            new Date(asset.assignmentDate).toLocaleDateString(),
+            asset.status
+        ]);
+
+        autoTable(doc, {
+            head: [tableColumn],
+            body: tableRows,
+            startY: 120,
+            theme: "grid",
+            headStyles: {
+                fillColor: primaryColor,
+                textColor: 255,
+                fontSize: 13,
+                halign: "center"
+            },
+            bodyStyles: {
+                fontSize: 11,
+            },
+            alternateRowStyles: {
+                fillColor: lightGray
+            },
+            styles: {
+                cellPadding: 8,
+            },
+            margin: { left: 40, right: 40 }
+        });
+
+        const pageHeight = doc.internal.pageSize.height;
+
+        doc.setFontSize(10);
+        doc.setTextColor(120);
+        doc.text(
+            "AssetVerse © 2025 — Internal Asset Management System",
+            40,
+            pageHeight - 30
+        );
+
+        doc.save("My_Assets_Report.pdf");
+    }
+
+
     return (
         <div className="w-full">
 
@@ -62,6 +135,14 @@ export default function MyAssets() {
                     <option value="Returnable">Returnable</option>
                     <option value="Non-returnable">Non-returnable</option>
                 </select>
+
+                {/* PRINT BUTTON */}
+                <button
+                    className="btn btn-primary mb-4 md:w-1/4"
+                    onClick={() => handlePrintPDF(filtered)}
+                >
+                    Download PDF
+                </button>
             </div>
 
             {/* No data message */}
@@ -129,7 +210,7 @@ export default function MyAssets() {
                                                     Return
                                                 </button>
                                             ) : (
-                                                <span className="text-gray-400 text-sm btn">Not Returnable</span>
+                                                <span className="text-gray-400 btn btn-disabled btn-sm">Not Returnable</span>
                                             )}
                                         </td>
                                     </tr>

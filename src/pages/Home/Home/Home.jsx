@@ -1,4 +1,3 @@
-import { useState } from "react";
 import About from "../About/About";
 import ContactCTA from "../ContactCTA/ContactCTA";
 import FAQ from "../FAQ/FAQ";

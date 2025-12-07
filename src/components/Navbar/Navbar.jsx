@@ -2,30 +2,51 @@ import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
 import Loading from "../../pages/Shared/Loading";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaBars } from "react-icons/fa";
 
 export default function Navbar() {
     const { user, logOut } = useAuth();
     const { role, roleLoading } = useRole();
     const [menuOpen, setMenuOpen] = useState(false);
+    const menuRef = useRef(null);
 
-    if (roleLoading && user) {
-        return <Loading />;
-    }
+    if (roleLoading && user) return <Loading />;
 
-    // NAV LINKS BASED ON ROLE
-    const employeeLinks = (
+    // CLOSE DROPDOWN WHEN CLICK OUTSIDE
+    useEffect(() => {
+        function handleClickOutside(e) {
+            if (menuRef.current && !menuRef.current.contains(e.target)) {
+                setMenuOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
+
+    // ===================== NAV LINKS ===================== //
+
+    const employeeLinksDesktop = (
         <>
             <Link className="hover:text-primary" to="/dashboard/employee/my-assets">My Assets</Link>
             <Link className="hover:text-primary" to="/dashboard/employee/request-asset">Request Asset</Link>
             <Link className="hover:text-primary" to="/dashboard/employee/my-team">My Team</Link>
             <Link className="hover:shadow hover:shadow-primary w-fit rounded-full" to="/dashboard/employee/profile" title="Profile">
-            <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" /></Link>
+                <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" />
+            </Link>
         </>
     );
 
-    const hrLinks = (
+    const employeeLinksMobile = (
+        <>
+            <Link className="hover:text-primary" to="/dashboard/employee/my-assets">My Assets</Link>
+            <Link className="hover:text-primary" to="/dashboard/employee/request-asset">Request Asset</Link>
+            <Link className="hover:text-primary" to="/dashboard/employee/my-team">My Team</Link>
+            <Link className="hover:text-primary" to="/dashboard/employee/profile">My Profile</Link>
+        </>
+    );
+
+    const hrLinksDesktop = (
         <>
             <Link className="hover:text-primary" to="/dashboard/hr/assets">Asset List</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/add-asset">Add Asset</Link>
@@ -33,7 +54,19 @@ export default function Navbar() {
             <Link className="hover:text-primary" to="/dashboard/hr/employees">Employee List</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/upgrade">Upgrade Package</Link>
             <Link className="hover:shadow hover:shadow-primary w-fit rounded-full" to="/dashboard/hr/profile">
-            <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" /></Link>
+                <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" />
+            </Link>
+        </>
+    );
+
+    const hrLinksMobile = (
+        <>
+            <Link className="hover:text-primary" to="/dashboard/hr/assets">Asset List</Link>
+            <Link className="hover:text-primary" to="/dashboard/hr/add-asset">Add Asset</Link>
+            <Link className="hover:text-primary" to="/dashboard/hr/requests">All Requests</Link>
+            <Link className="hover:text-primary" to="/dashboard/hr/employees">Employee List</Link>
+            <Link className="hover:text-primary" to="/dashboard/hr/upgrade">Upgrade Package</Link>
+            <Link className="hover:text-primary" to="/dashboard/hr/profile">HR Profile</Link>
         </>
     );
 
@@ -46,57 +79,54 @@ export default function Navbar() {
         </>
     );
 
-    return (
-        <div className="navbar bg-base-100 shadow px-6 md:px-12">
+    // =================== RENDER =================== //
 
-            {/* LEFT — LOGO */}
+    return (
+        <div className="navbar bg-base-100 shadow px-6 md:px-12 relative">
+
+            {/* LOGO */}
             <div className="flex-1">
                 <Link to="/" className="text-2xl font-bold">AssetVerse</Link>
             </div>
 
-            {/* MIDDLE — LINKS (Desktop Only) */}
+            {/* DESKTOP LINKS */}
             <div className="hidden lg:flex gap-6 items-center">
                 {!user && publicLinks}
-
-                {user && role === "employee" && employeeLinks}
-
-                {user && role === "hr" && hrLinks}
+                {user && role === "employee" && employeeLinksDesktop}
+                {user && role === "hr" && hrLinksDesktop}
 
                 {user && (
                     <button onClick={logOut} className="btn btn-error btn-sm">
                         Logout
                     </button>
                 )}
-                
             </div>
 
-            {/* RIGHT — PROFILE + MOBILE MENU */}
-            <div className="flex items-center gap-4">
+            {/* MOBILE MENU BUTTON */}
+            <div className="lg:hidden" ref={menuRef}>
+                <button
+                    className="text-2xl cursor-pointer hover:bg-base-200 p-2 rounded"
+                    onClick={() => setMenuOpen(!menuOpen)}
+                >
+                    <FaBars />
+                </button>
 
-                {/* MOBILE MENU BUTTON */}
-                <div className="lg:hidden">
-                    <button
-                        className="text-2xl cursor-pointer hover:bg-base-200"
-                        onClick={() => setMenuOpen(!menuOpen)}
-                    >
-                        <FaBars />
-                    </button>
+                {/* MOBILE DROPDOWN */}
+                {menuOpen && (
+                    <div className="absolute right-4 top-16 w-60 bg-base-100 shadow-lg rounded-lg p-4 flex flex-col gap-3 z-50">
 
-                    {menuOpen && (
-                        <div className="absolute right-4 top-16 w-60 bg-base-100 shadow rounded-lg p-4 flex flex-col gap-3 z-50">
-                            {!user && publicLinks}
+                        {!user && publicLinks}
 
-                            {user && role === "employee" && employeeLinks}
-                            {user && role === "hr" && hrLinks}
+                        {user && role === "employee" && employeeLinksMobile}
+                        {user && role === "hr" && hrLinksMobile}
 
-                            {user && (
-                                <button onClick={logOut} className="btn btn-error btn-sm mt-2">
-                                    Logout
-                                </button>
-                            )}
-                        </div>
-                    )}
-                </div>
+                        {user && (
+                            <button onClick={logOut} className="btn btn-error btn-sm mt-2">
+                                Logout
+                            </button>
+                        )}
+                    </div>
+                )}
             </div>
         </div>
     );
