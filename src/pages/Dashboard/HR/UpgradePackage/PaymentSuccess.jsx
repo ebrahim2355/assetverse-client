@@ -20,7 +20,6 @@ export default function PaymentSuccess() {
 
         const loadSession = async () => {
             try {
-                // 1️⃣ Fetch Stripe session from server
                 const res = await axiosSecure.get(`/checkout-session/${sessionId}`);
                 const s = res.data;
                 setSession(s);
@@ -28,7 +27,6 @@ export default function PaymentSuccess() {
                 const plan = s.metadata.plan;
                 const limit = Number(s.metadata.limit);
 
-                // 2️⃣ Save payment to DB
                 await axiosSecure.post("/payments", {
                     hrEmail: user.email,
                     transactionId: sessionId,
@@ -44,7 +42,6 @@ export default function PaymentSuccess() {
                         }
                     })
 
-                // 3️⃣ Update HR subscription
                 await axiosSecure.patch(`/users/${user.email}`, {
                     $set: {
                         subscription: plan,

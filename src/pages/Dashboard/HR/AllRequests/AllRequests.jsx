@@ -33,17 +33,23 @@ export default function AllRequests() {
             if (!result.isConfirmed) return;
 
             try {
+                const affRes = await axiosSecure.get(`/affiliations/employee/${reqItem.requesterEmail}`);
+                const alreadyAffiliated = affRes.data.some(a => a.hrEmail === reqItem.hrEmail);
+
+                const hrProfileRes = await axiosSecure.get(`/users/${reqItem.hrEmail}`);
+                const hr = hrProfileRes.data;
+
+                if (!alreadyAffiliated && hr.currentEmployees >= hr.packageLimit) {
+                    Swal.fire("Limit Reached!",
+                        "You have reached your employee limit. Upgrade your package to add more employees.",
+                        "error"
+                    );
+                    return;
+                }
+
                 await axiosSecure.patch(`/assets/${reqItem.assetId}`, {
                     $inc: { availableQuantity: -1 }
                 });
-
-                const affCheck = await axiosSecure.get(
-                    `/affiliations/employee/${reqItem.requesterEmail}`
-                );
-
-                const alreadyAffiliated = affCheck.data.some(
-                    a => a.hrEmail === reqItem.hrEmail
-                );
 
                 if (!alreadyAffiliated) {
                     await axiosSecure.post("/affiliations", {

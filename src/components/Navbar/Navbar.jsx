@@ -20,7 +20,8 @@ export default function Navbar() {
             <Link className="hover:text-primary" to="/dashboard/employee/my-assets">My Assets</Link>
             <Link className="hover:text-primary" to="/dashboard/employee/request-asset">Request Asset</Link>
             <Link className="hover:text-primary" to="/dashboard/employee/my-team">My Team</Link>
-            <Link className="hover:text-primary" to="/dashboard/employee/profile">Profile</Link>
+            <Link className="hover:shadow hover:shadow-primary rounded-full" to="/dashboard/employee/profile" title="Profile">
+            <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" /></Link>
         </>
     );
 
@@ -31,7 +32,8 @@ export default function Navbar() {
             <Link className="hover:text-primary" to="/dashboard/hr/requests">All Requests</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/employees">Employee List</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/upgrade">Upgrade Package</Link>
-            <Link className="hover:text-primary" to="/dashboard/hr/profile">Profile</Link>
+            <Link className="hover:shadow hover:shadow-primary rounded-full" to="/dashboard/hr/profile">
+            <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" /></Link>
         </>
     );
 
@@ -53,7 +55,7 @@ export default function Navbar() {
             </div>
 
             {/* MIDDLE — LINKS (Desktop Only) */}
-            <div className="hidden md:flex gap-6 items-center">
+            <div className="hidden lg:flex gap-6 items-center">
                 {!user && publicLinks}
 
                 {user && role === "employee" && employeeLinks}
@@ -65,13 +67,14 @@ export default function Navbar() {
                         Logout
                     </button>
                 )}
+                
             </div>
 
             {/* RIGHT — PROFILE + MOBILE MENU */}
             <div className="flex items-center gap-4">
 
                 {/* MOBILE MENU BUTTON */}
-                <div className="md:hidden">
+                <div className="lg:hidden">
                     <button
                         className="text-2xl cursor-pointer hover:bg-base-200"
                         onClick={() => setMenuOpen(!menuOpen)}
