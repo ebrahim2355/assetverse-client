@@ -28,13 +28,12 @@ export default function EditAsset() {
     });
 
     useEffect(() => {
-        reset(asset);
+        if (asset) reset(asset);
     }, [asset, reset]);
 
     if (isLoading) return <Loading />;
 
     const onSubmit = async (data) => {
-        // SWEETALERT CONFIRMATION POPUP
         const result = await Swal.fire({
             title: "Update Asset?",
             text: "Are you sure you want to update this asset?",
@@ -51,29 +50,31 @@ export default function EditAsset() {
         try {
             let imageURL = asset.productImage;
 
-            // If user selected a new image
-            if (data.productImage?.[0]) {
-                const imgFile = data.productImage[0];
+            if (
+                data.productImage &&
+                data.productImage.length > 0 &&
+                data.productImage[0] instanceof File
+            ) {
                 const formData = new FormData();
-                formData.append("image", imgFile);
+                formData.append("image", data.productImage[0]);
 
                 const uploadURL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_host_key}`;
 
                 const imgRes = await axios.post(uploadURL, formData);
 
                 imageURL = imgRes.data.data.url;
+                console.log(imageURL)
             }
 
-            // Updated object
             const updated = {
                 productName: data.productName,
                 productType: data.productType,
-                productQuantity: parseInt(data.productQuantity),
+                productQuantity: Number(data.productQuantity),
                 productImage: imageURL,
             };
 
-            const res = await axiosSecure.patch(`/assets/${id}`, updated);
-
+            const res = await axiosSecure.patch(`/assets/${id}`, { $set: updated });
+            console.log(res.data.modifiedCount)
             if (res.data.modifiedCount > 0) {
                 toast.success("Asset updated successfully!");
                 refetch();
@@ -123,7 +124,6 @@ export default function EditAsset() {
                         {...register("productName", { required: true })}
                         type="text"
                         className="input input-bordered w-full"
-                        defaultValue={asset.productName}
                     />
                 </div>
 
@@ -133,7 +133,6 @@ export default function EditAsset() {
                     <select
                         {...register("productType")}
                         className="select select-bordered w-full"
-                        defaultValue={asset.productType}
                     >
                         <option value="Returnable">Returnable</option>
                         <option value="Non-returnable">Non-returnable</option>
@@ -147,7 +146,6 @@ export default function EditAsset() {
                         {...register("productQuantity", { required: true })}
                         type="number"
                         className="input input-bordered w-full"
-                        defaultValue={asset.productQuantity}
                     />
                 </div>
 

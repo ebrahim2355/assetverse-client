@@ -23,6 +23,7 @@ import EmployeeList from "../pages/Dashboard/HR/EmployeeList/EmployeeList";
 import HRProfile from "../pages/Dashboard/HR/HRProfile/HRProfile";
 import UpgradePackage from "../pages/Dashboard/HR/UpgradePackage/UpgradePackage";
 import PaymentSuccess from "../pages/Dashboard/HR/UpgradePackage/PaymentSuccess";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 export const router = createBrowserRouter([
     {
@@ -112,5 +113,9 @@ export const router = createBrowserRouter([
                 element: <AdminRoute><PaymentSuccess></PaymentSuccess></AdminRoute>
             }
         ]
+    },
+    {
+        path: "*",
+        element: <ErrorPage></ErrorPage>
     }
 ])

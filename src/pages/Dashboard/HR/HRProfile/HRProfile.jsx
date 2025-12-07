@@ -51,7 +51,7 @@ export default function HRProfile() {
                 displayName: data.displayName,
                 photoURL,
                 dateOfBirth: data.dateOfBirth,
-                companyName: data.companyName, // HR can update
+                companyName: data.companyName
             };
 
             const result = await axiosSecure.patch(`/users/${user.email}`, {$set: updatedInfo});

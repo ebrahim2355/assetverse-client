@@ -147,7 +147,7 @@ export default function AssetList() {
                                     </span>
                                 </td>
 
-                                <td>{asset.productQuantity}</td>
+                                <td className="flex flex-col">{asset.productQuantity} <small className="text-primary">{asset.availableQuantity} available</small></td>
 
                                 <td>
                                     {new Date(asset.dateAdded).toLocaleDateString()}
@@ -196,6 +196,7 @@ export default function AssetList() {
                         <p>
                             <span className="font-semibold">Quantity:</span>{" "}
                             {asset.productQuantity}
+                            <small className="text-primary"> {asset.availableQuantity} available</small>
                         </p>
 
                         <p>

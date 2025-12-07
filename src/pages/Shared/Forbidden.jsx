@@ -1,4 +1,3 @@
-// src/pages/Shared/Forbidden.jsx
 import Lottie from "react-lottie";
 import animationData from "../../assets/lottie/forbidden.json";
 import { Link } from "react-router";

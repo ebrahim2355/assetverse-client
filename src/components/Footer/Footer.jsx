@@ -21,7 +21,6 @@ export default function Footer() {
             <li><Link to="/dashboard/employee/my-assets" className="hover:text-primary">My Assets</Link></li>
             <li><Link to="/dashboard/employee/request-asset" className="hover:text-primary">Request Asset</Link></li>
             <li><Link to="/dashboard/employee/my-team" className="hover:text-primary">My Team</Link></li>
-            <li><Link to="/dashboard/employee/profile" className="hover:text-primary">Profile</Link></li>
         </>
     )
 

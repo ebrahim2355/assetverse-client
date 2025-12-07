@@ -70,7 +70,7 @@ export default function RequestAsset() {
                 {assets.map(asset => (
                     <div
                         key={asset._id}
-                        className="bg-base-100 p-4 rounded-lg shadow hover:shadow-lg transition"
+                        className="bg-base-100 p-4 rounded-lg shadow hover:shadow-lg transition flex flex-col"
                     >
                         <img
                             src={asset.productImage}
@@ -78,11 +78,11 @@ export default function RequestAsset() {
                             className="w-full h-40 object-cover rounded-md"
                         />
 
-                        <h3 className="text-xl font-semibold mt-3">
+                        <h3 className="text-xl font-semibold mt-3 flex-1">
                             {asset.productName}
                         </h3>
 
-                        <p className="text-sm text-gray-500">Company: {asset.companyName}</p>
+                        <p className="text-sm text-gray-500 flex-1">Company: {asset.companyName}</p>
 
                         <p className="text-sm mt-1">
                             Type:{" "}
