@@ -20,7 +20,7 @@ export default function Navbar() {
             <Link className="hover:text-primary" to="/dashboard/employee/my-assets">My Assets</Link>
             <Link className="hover:text-primary" to="/dashboard/employee/request-asset">Request Asset</Link>
             <Link className="hover:text-primary" to="/dashboard/employee/my-team">My Team</Link>
-            <Link className="hover:shadow hover:shadow-primary rounded-full" to="/dashboard/employee/profile" title="Profile">
+            <Link className="hover:shadow hover:shadow-primary w-fit rounded-full" to="/dashboard/employee/profile" title="Profile">
             <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" /></Link>
         </>
     );
@@ -32,7 +32,7 @@ export default function Navbar() {
             <Link className="hover:text-primary" to="/dashboard/hr/requests">All Requests</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/employees">Employee List</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/upgrade">Upgrade Package</Link>
-            <Link className="hover:shadow hover:shadow-primary rounded-full" to="/dashboard/hr/profile">
+            <Link className="hover:shadow hover:shadow-primary w-fit rounded-full" to="/dashboard/hr/profile">
             <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" /></Link>
         </>
     );

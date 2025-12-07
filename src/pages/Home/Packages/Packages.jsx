@@ -1,9 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Loading from "../../Shared/Loading";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useNavigate } from "react-router";
+import toast from "react-hot-toast";
+import useRole from "../../../hooks/useRole";
+import useAuth from "../../../hooks/useAuth";
 
 export default function Packages() {
     const axiosSecure = useAxiosSecure();
+    const { user } = useAuth();
+    const { role } = useRole();
+    const navigate = useNavigate();
 
     const { data: packages = [], isLoading } = useQuery({
         queryKey: ["packages"],
@@ -13,7 +20,24 @@ export default function Packages() {
         }
     });
 
-    if (isLoading) return <Loading />;
+    if (isLoading) return null;
+
+    const handleChoosePlan = () => {
+
+        if (!user) {
+            navigate("/login");
+            return;
+        }
+
+        if (role === "employee") {
+            toast.error("You need to be an HR to upgrade your package!");
+            return;
+        }
+
+        if (role === "hr") {
+            navigate("/dashboard/hr/upgrade");
+        }
+    };
 
     return (
         <section className="max-w-6xl mx-auto px-6 text-center">
@@ -34,9 +58,12 @@ export default function Packages() {
                             Employee Limit: <b>{pack.employeeLimit}</b>
                         </p>
 
-                        <a href="/login" className="btn btn-primary mt-6 w-full">
+                        <button
+                            onClick={handleChoosePlan}
+                            className="btn btn-primary mt-6 w-full"
+                        >
                             Choose Plan
-                        </a>
+                        </button>
                     </div>
                 ))}
             </div>

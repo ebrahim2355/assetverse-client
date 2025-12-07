@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
     return (
-        <section className="hero min-h-[90vh] shadow rounded-2xl">
+        <section className="hero shadow rounded-2xl">
             <div className="hero-content p-6 flex-col lg:flex-row-reverse gap-12">
 
                 <motion.img
