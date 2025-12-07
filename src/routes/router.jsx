@@ -21,6 +21,8 @@ import AddAsset from "../pages/Dashboard/HR/AddAsset/AddAsset";
 import AllRequests from "../pages/Dashboard/HR/AllRequests/AllRequests";
 import EmployeeList from "../pages/Dashboard/HR/EmployeeList/EmployeeList";
 import HRProfile from "../pages/Dashboard/HR/HRProfile/HRProfile";
+import UpgradePackage from "../pages/Dashboard/HR/UpgradePackage/UpgradePackage";
+import PaymentSuccess from "../pages/Dashboard/HR/UpgradePackage/PaymentSuccess";
 
 export const router = createBrowserRouter([
     {
@@ -100,6 +102,14 @@ export const router = createBrowserRouter([
             {
                 path: "hr/profile",
                 element: <AdminRoute><HRProfile></HRProfile></AdminRoute>
+            },
+            {
+                path: "hr/upgrade",
+                element: <AdminRoute><UpgradePackage></UpgradePackage></AdminRoute>
+            },
+            {
+                path: "hr/payment-success",
+                element: <AdminRoute><PaymentSuccess></PaymentSuccess></AdminRoute>
             }
         ]
     }
