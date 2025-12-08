@@ -39,7 +39,7 @@ export default function Testimonials() {
                     loop={true}
                     spaceBetween={30}
                     slidesPerView={1}
-                    pagination={{ clickable: true }}
+                    // pagination={{ clickable: true }}
                     breakpoints={{
                         640: { slidesPerView: 1 },
                         768: { slidesPerView: 2 },
@@ -47,14 +47,15 @@ export default function Testimonials() {
                     }}
                 >
                     {reviews.map((item, i) => (
-                        <SwiperSlide key={i} className="h-auto flex mb-5">
-                            <div className="p-6 bg-base-100 rounded-xl shadow w-full border my-5">
-                                <p className="italic text-gray-600 mb-4 h-[60px]">
+                        <SwiperSlide key={i} className="h-auto flex mb-4">
+                            <div className="p-6 bg-base-100 rounded-xl shadow w-full border">
+                                <p className="italic text-gray-600 mb-4 min-h-[70px]">
                                     “{item.review}”
                                 </p>
 
                                 <h3 className="font-bold text-lg">{item.company}</h3>
-                                <p className="text-sm text-gray-500">{item.author}</p>
+                                <p className="text-md text-gray-800">{item.author}</p>
+                                <p className="text-sm text-gray-400">Position: {item.position}</p>
                             </div>
                         </SwiperSlide>
                     ))}
