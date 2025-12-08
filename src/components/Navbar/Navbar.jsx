@@ -87,7 +87,7 @@ export default function Navbar() {
 
             {/* LOGO */}
             <div className="flex-1">
-                <Link to="/" className="text-2xl font-bold flex items-center gap-2">
+                <Link to="/" className="text-2xl font-bold flex items-center gap-2 w-fit">
                 <img className="w-10 h-10" src="./mainicon.svg" alt="" />
                 AssetVerse</Link>
             </div>
