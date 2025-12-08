@@ -158,7 +158,7 @@ This repository contains the full frontend (client-side) implementation using:
 ---
 
 ## 📂 Project Structure
-
+```
 src/
 │
 ├── components/
@@ -202,7 +202,7 @@ src/
 │
 └── firebase/
     └── firebase.config.js
-
+```
 ---
 
 ## ⚙️ Environment Variables
