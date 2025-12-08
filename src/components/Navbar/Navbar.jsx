@@ -5,9 +5,11 @@ import { useEffect, useRef, useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useRole from "../../hooks/useRole";
 
 export default function Navbar() {
     const { user, logOut } = useAuth();
+    const { role } = useRole();
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null);
     const axiosSecure = useAxiosSecure();
@@ -40,6 +42,7 @@ export default function Navbar() {
 
     const employeeLinksDesktop = (
         <>
+            <Link className="hover:text-primary" to="/dashboard">Dashboard</Link>
             <Link className="hover:text-primary" to="/dashboard/employee/my-assets">My Assets</Link>
             <Link className="hover:text-primary" to="/dashboard/employee/request-asset">Request Asset</Link>
             <Link className="hover:text-primary" to="/dashboard/employee/my-team">My Team</Link>
@@ -51,6 +54,7 @@ export default function Navbar() {
 
     const employeeLinksMobile = (
         <>
+            <Link className="hover:text-primary" to="/dashboard">Dashboard</Link>
             <Link className="hover:text-primary" to="/dashboard/employee/my-assets">My Assets</Link>
             <Link className="hover:text-primary" to="/dashboard/employee/request-asset">Request Asset</Link>
             <Link className="hover:text-primary" to="/dashboard/employee/my-team">My Team</Link>
@@ -60,6 +64,7 @@ export default function Navbar() {
 
     const hrLinksDesktop = (
         <>
+            <Link className="hover:text-primary" to="/dashboard">Dashboard</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/assets">Asset List</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/add-asset">Add Asset</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/requests">All Requests</Link>
@@ -73,6 +78,7 @@ export default function Navbar() {
 
     const hrLinksMobile = (
         <>
+            <Link className="hover:text-primary" to="/dashboard">Dashboard</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/assets">Asset List</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/add-asset">Add Asset</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/requests">All Requests</Link>
@@ -106,8 +112,8 @@ export default function Navbar() {
             {/* DESKTOP LINKS */}
             <div className="hidden lg:flex gap-6 items-center">
                 {!user && publicLinks}
-                {user && profile.role === "employee" && employeeLinksDesktop}
-                {user && profile.role === "hr" && hrLinksDesktop}
+                {user && role === "employee" && employeeLinksDesktop}
+                {user && role === "hr" && hrLinksDesktop}
 
                 {user && (
                     <button onClick={logOut} className="btn btn-error btn-sm">
@@ -131,8 +137,8 @@ export default function Navbar() {
 
                         {!user && publicLinks}
 
-                        {user && profile.role === "employee" && employeeLinksMobile}
-                        {user && profile.role === "hr" && hrLinksMobile}
+                        {user && role === "employee" && employeeLinksMobile}
+                        {user && role === "hr" && hrLinksMobile}
 
                         {user && (
                             <button onClick={logOut} className="btn btn-error btn-sm mt-2">

@@ -1,22 +1,20 @@
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../providers/AuthContext";
-import Swal from "sweetalert2";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import toast from "react-hot-toast";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
+import useAuth from "../../hooks/useAuth";
 
 export default function RegisterEmployee() {
-    const { registerUser, updateUserProfile } = useContext(AuthContext);
+    const { registerUser, updateUserProfile } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const axiosInstance = useAxios();
 
     const handleEmployeeRegister = async (data) => {
-        console.log(data);
         const profileImg = data.photo[0];
 
         await registerUser(data.email, data.password)
@@ -52,6 +50,9 @@ export default function RegisterEmployee() {
                             .then(() => {
                                 toast.success("Success! Employee registered successfully");
                                 navigate("/dashboard");
+                            })
+                            .catch(err => {
+                                console.log(err);
                             })
                     })
 

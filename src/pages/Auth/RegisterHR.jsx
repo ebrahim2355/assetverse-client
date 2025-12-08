@@ -1,15 +1,14 @@
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../providers/AuthContext";
-import Swal from "sweetalert2";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import useAxios from "../../hooks/useAxios";
+import useAuth from "../../hooks/useAuth";
 
 export default function RegisterHR() {
-    const { registerUser, updateUserProfile } = useContext(AuthContext);
+    const { registerUser, updateUserProfile } = useAuth();
     const [showPassword, setShowPassword] = useState(false);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
