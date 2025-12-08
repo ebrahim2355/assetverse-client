@@ -20,8 +20,6 @@ export default function Packages() {
         }
     });
 
-    if (isLoading) return null;
-
     const handleChoosePlan = () => {
 
         if (!user) {
@@ -43,6 +41,15 @@ export default function Packages() {
         <section className="max-w-6xl mx-auto px-6 text-center">
             <h2 className="text-4xl font-bold mb-8">Our Packages</h2>
 
+            {isLoading && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {[...Array(3)].map((_, i) => (
+                        <div key={i} className="animate-pulse bg-base-200 rounded-xl h-40"></div>
+                    ))}
+                </div>
+            )}
+
+            {!isLoading && (
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {packages.map((pack) => (
                     <div key={pack._id} className="p-8 bg-base-100 rounded-xl shadow border">
@@ -67,6 +74,7 @@ export default function Packages() {
                     </div>
                 ))}
             </div>
+            )}
         </section>
     );
 }
