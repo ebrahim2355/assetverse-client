@@ -54,7 +54,7 @@ This repository contains the full frontend (client-side) implementation using:
 
     - Global role resolver hook (useRole)
 
---
+────────────
 
 ### 🔐 **Role-Based Route Protection**
 
@@ -68,7 +68,7 @@ This repository contains the full frontend (client-side) implementation using:
 
     - user role (HR / Employee)
 
---
+────────────
 
 ### 📦 **Asset Management (HR)**
 
@@ -84,7 +84,7 @@ This repository contains the full frontend (client-side) implementation using:
 
 - Auto-sync with backend via TanStack Query
 
---
+────────────
 
 ### 📝 **Asset Requests (Employee)**
 
@@ -96,7 +96,7 @@ This repository contains the full frontend (client-side) implementation using:
 
 - HR receives and manages requests
 
---
+────────────
 
 ### 🧩 **Affiliations (Auto HR → Employee linking)**
 
@@ -104,7 +104,7 @@ This repository contains the full frontend (client-side) implementation using:
 
 - HR dashboard shows team list + asset counts
 
---
+────────────
 
 ### 💳 **Payment & Subscription System**
 
@@ -114,7 +114,7 @@ This repository contains the full frontend (client-side) implementation using:
 
 - Automatically updates employee limit & subscription status
 
---
+────────────
 
 ### 📊 **HR Analytics Dashboard**
 
@@ -124,7 +124,7 @@ This repository contains the full frontend (client-side) implementation using:
 
 - Uses Recharts + TanStack Query
 
---
+────────────
 
 ### 🎨 **UI / UX**
 
@@ -158,6 +158,7 @@ This repository contains the full frontend (client-side) implementation using:
 ---
 
 ## 📂 Project Structure
+
 src/
 │
 ├── components/
@@ -168,10 +169,10 @@ src/
 │   └── ...
 │
 ├── pages/
-|   ├── Auth/
-|   ├── ErrorPage/
+│   ├── Auth/
+│   ├── ErrorPage/
 │   ├── Home/
-|   ├── Shared/
+│   ├── Shared/
 │   ├── Dashboard/
 │   │    ├── HR/
 │   │    └── Employee/
@@ -183,24 +184,24 @@ src/
 │   ├── useAxiosSecure.jsx
 │   ├── useRole.jsx
 │   └── ...
-|
+│
 ├── layouts/
-|   ├──DashboardLayout.jsx
-|   └──RootLayout.jsx
+│   ├── DashboardLayout.jsx
+│   └── RootLayout.jsx
 │
 ├── providers/
-|   ├── AuthContext.jsx
+│   ├── AuthContext.jsx
 │   └── AuthProvider.jsx
 │
 ├── routes/
-|   ├── AdminRoute.jsx
-|   ├── EmployeeRoute.jsx
-|   ├── PrivateRoute.jsx
-|   ├── RoleBasedDashboard.jsx
+│   ├── AdminRoute.jsx
+│   ├── EmployeeRoute.jsx
+│   ├── PrivateRoute.jsx
+│   ├── RoleBasedDashboard.jsx
 │   └── routes.jsx
 │
 └── firebase/
-     └── firebase.config.js
+    └── firebase.config.js
 
 ---
 
