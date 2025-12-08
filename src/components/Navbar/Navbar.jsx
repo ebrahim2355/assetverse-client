@@ -21,7 +21,7 @@ export default function Navbar() {
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
-    
+
     if (roleLoading && user) return <Loading />;
 
 
@@ -87,7 +87,9 @@ export default function Navbar() {
 
             {/* LOGO */}
             <div className="flex-1">
-                <Link to="/" className="text-2xl font-bold">AssetVerse</Link>
+                <Link to="/" className="text-2xl font-bold flex items-center gap-2">
+                <img className="w-10 h-10" src="./mainicon.svg" alt="" />
+                AssetVerse</Link>
             </div>
 
             {/* DESKTOP LINKS */}

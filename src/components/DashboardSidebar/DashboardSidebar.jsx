@@ -16,7 +16,9 @@ export default function DashboardSidebar() {
 
             {/* Title */}
             <div className="p-4 text-2xl font-bold border-b text-primary">
-                <Link to={"/dashboard"}>Dashboard</Link>
+                <Link className="flex items-center gap-2" to={"/dashboard"}>
+                <img className="w-10 h-10" src="./mainicon.svg" alt="" />
+                Dashboard</Link>
             </div>
 
             <ul className="menu w-full p-4 text-lg">

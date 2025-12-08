@@ -25,11 +25,12 @@ export default function Testimonials() {
             {/* Skeleton loader */}
             {isLoading && (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {[...Array(3)].map((_, i) => (
-                        <div key={i} className="animate-pulse bg-base-200 rounded-xl h-40"></div>
-                    ))}
+                    <div className="animate-pulse bg-base-200 rounded-xl h-40"></div>
+                    <div className="hidden md:block animate-pulse bg-base-200 rounded-xl h-40"></div>
+                    <div className="hidden lg:block animate-pulse bg-base-200 rounded-xl h-40"></div>
                 </div>
             )}
+
 
             {!isLoading && (
                 <Swiper
@@ -48,7 +49,7 @@ export default function Testimonials() {
                     {reviews.map((item, i) => (
                         <SwiperSlide key={i} className="h-auto flex mb-5">
                             <div className="p-6 bg-base-100 rounded-xl shadow w-full border my-5">
-                                <p className="italic text-gray-600 mb-4">
+                                <p className="italic text-gray-600 mb-4 h-[60px]">
                                     “{item.review}”
                                 </p>
 
