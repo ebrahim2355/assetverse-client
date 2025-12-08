@@ -45,6 +45,7 @@ const AuthProvider = ({ children }) => {
                 axiosInstance.post("/jwt", { email: currentUser.email })
                     .then(res => {
                         localStorage.setItem("access-token", res.data.token);
+                        setLoading(false)
                     })
             } else {
                 localStorage.removeItem("access-token");

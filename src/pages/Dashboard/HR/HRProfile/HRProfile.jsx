@@ -79,7 +79,7 @@ export default function HRProfile() {
                 {/* PROFILE IMAGE */}
                 <div className="flex items-center gap-6">
                     <img
-                        src={preview || profile.photoURL || "https://i.ibb.co/y0K6vBp/user.png"}
+                        src={preview || profile.photoURL || profile.companyLogo || "https://i.ibb.co/y0K6vBp/user.png"}
                         alt="Profile"
                         className="w-20 h-20 rounded-full object-cover border"
                     />

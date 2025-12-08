@@ -34,6 +34,7 @@ export default function RegisterHR() {
                             displayName: data.name,
                             companyName: data.companyName,
                             companyLogo: photoURL,
+                            photoURL: photoURL,
                             password: data.password,
                             dateOfBirth: data.dateOfBirth
                         }

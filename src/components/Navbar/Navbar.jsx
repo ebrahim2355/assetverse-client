@@ -1,16 +1,27 @@
 import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
-import useRole from "../../hooks/useRole";
 import Loading from "../../pages/Shared/Loading";
 import { useEffect, useRef, useState } from "react";
 import { FaBars } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 export default function Navbar() {
     const { user, logOut } = useAuth();
-    const { role, roleLoading } = useRole();
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null);
-    
+    const axiosSecure = useAxiosSecure();
+
+    const { data: profile = {}, isLoading } = useQuery({
+        queryKey: ["hr-profile", user?.email],
+        enabled: !!user?.email,
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/users/${user.email}`);
+            return res.data;
+        },
+    });
+
+
     // CLOSE DROPDOWN WHEN CLICK OUTSIDE
     useEffect(() => {
         function handleClickOutside(e) {
@@ -22,7 +33,7 @@ export default function Navbar() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
-    if (roleLoading && user) return <Loading />;
+    if (isLoading && user) return <Loading />;
 
 
     // ===================== NAV LINKS ===================== //
@@ -33,7 +44,7 @@ export default function Navbar() {
             <Link className="hover:text-primary" to="/dashboard/employee/request-asset">Request Asset</Link>
             <Link className="hover:text-primary" to="/dashboard/employee/my-team">My Team</Link>
             <Link className="hover:shadow hover:shadow-primary w-fit rounded-full" to="/dashboard/employee/profile" title="Profile">
-                <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" />
+                <img className="w-10 h-10 rounded-full" src={profile.photoURL} alt="" />
             </Link>
         </>
     );
@@ -55,7 +66,7 @@ export default function Navbar() {
             <Link className="hover:text-primary" to="/dashboard/hr/employees">Employee List</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/upgrade">Upgrade Package</Link>
             <Link className="hover:shadow hover:shadow-primary w-fit rounded-full" to="/dashboard/hr/profile">
-                <img className="w-10 h-10 rounded-full" src={user?.photoURL} alt="" />
+                <img className="w-10 h-10 rounded-full" src={profile.photoURL || profile.companyLogo} alt="" />
             </Link>
         </>
     );
@@ -88,15 +99,15 @@ export default function Navbar() {
             {/* LOGO */}
             <div className="flex-1">
                 <Link to="/" className="text-2xl font-bold flex items-center gap-2 w-fit">
-                <img className="w-10 h-10" src="./mainicon.svg" alt="" />
-                AssetVerse</Link>
+                    <img className="w-10 h-10" src="./mainicon.svg" alt="" />
+                    AssetVerse</Link>
             </div>
 
             {/* DESKTOP LINKS */}
             <div className="hidden lg:flex gap-6 items-center">
                 {!user && publicLinks}
-                {user && role === "employee" && employeeLinksDesktop}
-                {user && role === "hr" && hrLinksDesktop}
+                {user && profile.role === "employee" && employeeLinksDesktop}
+                {user && profile.role === "hr" && hrLinksDesktop}
 
                 {user && (
                     <button onClick={logOut} className="btn btn-error btn-sm">
@@ -120,8 +131,8 @@ export default function Navbar() {
 
                         {!user && publicLinks}
 
-                        {user && role === "employee" && employeeLinksMobile}
-                        {user && role === "hr" && hrLinksMobile}
+                        {user && profile.role === "employee" && employeeLinksMobile}
+                        {user && profile.role === "hr" && hrLinksMobile}
 
                         {user && (
                             <button onClick={logOut} className="btn btn-error btn-sm mt-2">

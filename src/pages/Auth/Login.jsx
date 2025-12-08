@@ -4,10 +4,13 @@ import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import useAuth from "../../hooks/useAuth";
 import { ErrorMsg } from "../../components/ErrorMsg/ErrorMsg";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 export default function Login() {
+    const [showPassword, setShowPassword] = useState(false);
     const { signInUser } = useAuth();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
     const navigate = useNavigate();
 
     const onSubmit = ({ email, password }) => {
@@ -36,15 +39,24 @@ export default function Login() {
                         className="input input-bordered w-full"
                         required
                     />
-                    <ErrorMsg error={errors.email} />
 
-                    <input
-                        {...register("password")}
-                        type="password"
-                        placeholder="Password"
-                        className="input input-bordered w-full"
-                        required
-                    />
+                    <div className="relative mb-2">
+                        <input
+                            {...register("password")}
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Password"
+                            className="input input-bordered w-full"
+                            required
+                        />
+
+                        {/* Eye Icon */}
+                        <span
+                            className="absolute right-3 top-3 cursor-pointer text-xl text-gray-500 z-20"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                        </span>
+                    </div>
 
                     <button className="btn btn-primary w-full">Login</button>
                 </form>
