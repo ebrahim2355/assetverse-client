@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import useAuth from "./useAuth";
 
 const axiosSecure = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "https://assetverse-server.vercel.app",
 });
 
 export default function useAxiosSecure() {

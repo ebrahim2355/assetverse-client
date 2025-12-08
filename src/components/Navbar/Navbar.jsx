@@ -10,9 +10,7 @@ export default function Navbar() {
     const { role, roleLoading } = useRole();
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null);
-
-    if (roleLoading && user) return <Loading />;
-
+    
     // CLOSE DROPDOWN WHEN CLICK OUTSIDE
     useEffect(() => {
         function handleClickOutside(e) {
@@ -23,6 +21,9 @@ export default function Navbar() {
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
+    
+    if (roleLoading && user) return <Loading />;
+
 
     // ===================== NAV LINKS ===================== //
 
