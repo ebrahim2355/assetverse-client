@@ -26,7 +26,7 @@ This repository contains the full frontend (client-side) implementation using:
 ---
 
 ### Smart Asset & HR Management Platform
-**Live Demo** → https://assetverse.netlify.app/
+**Live Demo** → https://eb-assetverse.vercel.app
 
 **Backend Repo** → https://github.com/ebrahim2355/assetverse-server
 
