@@ -1,3 +1,4 @@
+import mainIcon from "../../assets/mainicon.svg";
 import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import Loading from "../../pages/Shared/Loading";
@@ -13,6 +14,9 @@ export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null);
     const axiosSecure = useAxiosSecure();
+    const [theme, setTheme] = useState(
+        document.documentElement.getAttribute("data-theme") || "light"
+    );
 
     const { data: profile = {}, isLoading } = useQuery({
         queryKey: ["hr-profile", user?.email],
@@ -69,7 +73,6 @@ export default function Navbar() {
             <Link className="hover:text-primary" to="/dashboard/hr/add-asset">Add Asset</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/requests">All Requests</Link>
             <Link className="hover:text-primary" to="/dashboard/hr/employees">Employee List</Link>
-            <Link className="hover:text-primary" to="/dashboard/hr/upgrade">Upgrade Package</Link>
             <Link className="hover:shadow hover:shadow-primary w-fit rounded-full" to="/dashboard/hr/profile">
                 <img className="w-10 h-10 rounded-full" src={profile.photoURL || profile.companyLogo} alt="" />
             </Link>
@@ -97,15 +100,23 @@ export default function Navbar() {
         </>
     );
 
+    const toggleTheme = () => {
+        const nextTheme = theme === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", nextTheme);
+        localStorage.setItem("theme", nextTheme);
+        setTheme(nextTheme);
+    };
+
+
     // =================== RENDER =================== //
 
     return (
-        <div className="navbar bg-base-100 shadow px-6 md:px-12 relative">
+        <div className="navbar bg-base-100 shadow px-6 md:px-12 sticky top-0 z-50">
 
             {/* LOGO */}
             <div className="flex-1">
                 <Link to="/" className="text-2xl font-bold flex items-center gap-2 w-fit">
-                    <img className="w-10 h-10" src="./mainicon.svg" alt="" />
+                    <img className="w-10 h-10" src={mainIcon} alt="" />
                     AssetVerse</Link>
             </div>
 
@@ -114,6 +125,14 @@ export default function Navbar() {
                 {!user && publicLinks}
                 {user && role === "employee" && employeeLinksDesktop}
                 {user && role === "hr" && hrLinksDesktop}
+
+                <button
+                    onClick={toggleTheme}
+                    className="btn btn-ghost btn-sm text-xl"
+                    title="Toggle theme"
+                >
+                    {theme === "dark" ? "☀️" : "🌙"}
+                </button>
 
                 {user && (
                     <button onClick={logOut} className="btn btn-error btn-sm">
@@ -139,6 +158,13 @@ export default function Navbar() {
 
                         {user && role === "employee" && employeeLinksMobile}
                         {user && role === "hr" && hrLinksMobile}
+
+                        <button
+                            onClick={toggleTheme}
+                            className="btn btn-ghost btn-sm w-full justify-start text-lg"
+                        >
+                            {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
+                        </button>
 
                         {user && (
                             <button onClick={logOut} className="btn btn-error btn-sm mt-2">

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 export default function Hero() {
     return (
-        <section className="hero shadow rounded-2xl">
+        <section className="hero shadow-lg border border-gray-500 rounded-2xl">
             <div className="hero-content p-6 flex-col lg:flex-row-reverse gap-12">
 
                 <motion.img
@@ -22,7 +22,7 @@ export default function Hero() {
                         Smart Asset Management <br />
                         for Modern Companies
                     </h1>
-                    <p className="py-6 md:text-lg text-gray-600">
+                    <p className="py-6 md:text-lg text-gray-500">
                         Streamline asset tracking, employee requests, package upgrades,
                         and more — all in one platform designed for corporate teams.
                     </p>

@@ -1,2 +1,85 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+/* ===============================
+   GLOBAL THEME VARIABLES
+   =============================== */
+
+html {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* LIGHT MODE */
+html[data-theme="light"] {
+    --bg-primary: #ffffff;
+    --bg-secondary: #f8fafc;
+    --bg-card: #ffffff;
+
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+
+    --border-color: #e2e8f0;
+}
+
+/* DARK MODE */
+html[data-theme="dark"] {
+    --bg-primary: #020617;
+    /* slate-950 */
+    --bg-secondary: #0f172a;
+    /* slate-900 */
+    --bg-card: #020617;
+
+    --text-primary: #e5e7eb;
+    /* gray-200 */
+    --text-secondary: #94a3b8;
+    /* slate-400 */
+
+    --border-color: #1e293b;
+}
+
+/* ===============================
+   APPLY THEME
+   =============================== */
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Cards */
+.card,
+.bg-base-100,
+.bg-white {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+}
+
+/* Inputs */
+input,
+textarea,
+select {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+/* Tables */
+table {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* Muted text helper */
+.text-muted {
+    color: var(--text-secondary);
+}
+
+/* Links */
+a {
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #38bdf8;
+}

@@ -17,7 +17,7 @@ export default function Features() {
                     <div key={index} className="p-6 bg-base-100 rounded-xl shadow flex flex-col items-center text-center">
                         <div className="text-4xl mb-3">{f.icon}</div>
                         <h3 className="font-bold text-xl">{f.title}</h3>
-                        <p className="text-sm text-gray-600 mt-2">{f.desc}</p>
+                        <p className="text-sm text-gray-500 mt-2">{f.desc}</p>
                     </div>
                 ))}
             </div>

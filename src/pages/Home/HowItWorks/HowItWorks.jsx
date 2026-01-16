@@ -14,7 +14,7 @@ export default function HowItWorks() {
                     <div key={i} className="p-6 bg-base-100 rounded-xl shadow">
                         <div className="text-5xl font-bold text-primary">{s.step}</div>
                         <h3 className="text-xl font-bold mt-3">{s.title}</h3>
-                        <p className="text-sm text-gray-600 mt-2">{s.desc}</p>
+                        <p className="text-sm text-gray-500 mt-2">{s.desc}</p>
                     </div>
                 ))}
             </div>

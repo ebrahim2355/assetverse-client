@@ -24,6 +24,7 @@ import HRProfile from "../pages/Dashboard/HR/HRProfile/HRProfile";
 import UpgradePackage from "../pages/Dashboard/HR/UpgradePackage/UpgradePackage";
 import PaymentSuccess from "../pages/Dashboard/HR/UpgradePackage/PaymentSuccess";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import AssetDetails from "../pages/Assets/AssetDetails";
 
 export const router = createBrowserRouter([
     {
@@ -49,6 +50,10 @@ export const router = createBrowserRouter([
             {
                 path: "register-hr",
                 element: <RegisterHR></RegisterHR>
+            },
+            {
+                path: "/assets/:id",
+                element: <AssetDetails></AssetDetails>
             },
             {
                 path: "unauthorized",

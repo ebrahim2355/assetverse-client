@@ -26,7 +26,7 @@ export default function About() {
                 {benefits.map((b, i) => (
                     <div key={i} className="p-6 bg-base-100 rounded-xl shadow">
                         <h3 className="font-bold text-xl mb-2">{b.title}</h3>
-                        <p className="text-sm text-gray-600">{b.desc}</p>
+                        <p className="text-sm text-gray-500">{b.desc}</p>
                     </div>
                 ))}
             </div>

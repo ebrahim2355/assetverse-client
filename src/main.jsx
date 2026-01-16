@@ -7,6 +7,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import AuthProvider from './providers/AuthProvider.jsx'
 import { Toaster } from 'react-hot-toast'
 
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  document.documentElement.setAttribute("data-theme", savedTheme);
+}
 
 const queryClient = new QueryClient()
 

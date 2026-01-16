@@ -1,7 +1,7 @@
 import { Link, NavLink } from "react-router";
 import useRole from "../../hooks/useRole";
 import Loading from "../../pages/Shared/Loading";
-import mainIcon from "../../../public/mainicon.svg";
+import mainIcon from "../../assets/mainicon.svg";
 
 export default function DashboardSidebar() {
     const { role, roleLoading } = useRole();

@@ -42,7 +42,7 @@ export default function SocialLogin() {
             <p className="my-2">OR</p>
             <button
                 onClick={handleGoogleSignIn}
-                className="btn bg-white text-black border w-full"
+                className="btn bg-white border w-full"
             >
                 <FaGoogle />
                 Continue with Google

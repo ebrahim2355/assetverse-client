@@ -20,7 +20,7 @@ export default function Testimonials() {
         <section className="max-w-5xl mx-auto px-6 text-center">
 
             <h2 className="text-4xl font-bold mb-4">Trusted by Companies</h2>
-            <p className="text-gray-600 mb-6">100+ Businesses use AssetVerse daily</p>
+            <p className="text-gray-500 mb-6">100+ Businesses use AssetVerse daily</p>
 
             {/* Skeleton loader */}
             {isLoading && (
@@ -49,12 +49,12 @@ export default function Testimonials() {
                     {reviews.map((item, i) => (
                         <SwiperSlide key={i} className="h-auto flex mb-4">
                             <div className="p-6 bg-base-100 rounded-xl shadow w-full border">
-                                <p className="italic text-gray-600 mb-4 min-h-[70px]">
+                                <p className="italic text-gray-500 mb-4 min-h-[70px]">
                                     “{item.review}”
                                 </p>
 
                                 <h3 className="font-bold text-lg">{item.company}</h3>
-                                <p className="text-md text-gray-800">{item.author}</p>
+                                <p className="text-md text-gray-500">{item.author}</p>
                                 <p className="text-sm text-gray-400">Position: {item.position}</p>
                             </div>
                         </SwiperSlide>

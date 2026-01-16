@@ -54,7 +54,7 @@ export default function Packages() {
                 {packages.map((pack) => (
                     <div key={pack._id} className="p-8 bg-base-100 rounded-xl shadow border">
                         <h3 className="text-2xl font-bold">{pack.name}</h3>
-                        <p className="text-gray-600 mt-2 mb-3">{pack.description}</p>
+                        <p className="text-gray-500 mt-2 mb-3 line-clamp-2">{pack.description}</p>
 
                         <p className="text-3xl font-bold">
                             ${pack.price}

@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
+import { FaCreativeCommonsSamplingPlus, FaFacebookF, FaInstagram, FaLinkedinIn, FaMicrophone, FaVoicemail } from "react-icons/fa";
 
 export default function Footer() {
     const { user } = useAuth();
@@ -65,56 +66,72 @@ export default function Footer() {
                     </div>
 
                     {/* Contact */}
+                    {/* Contact */}
                     <div>
                         <h3 className="font-semibold text-lg mb-3">Contact</h3>
-                        <ul className="space-y-2 text-sm">
-                            <li>Email: support@assetverse.com</li>
-                            <li>Phone: +1 234 567 890</li>
-                            <li>Address: New York, USA</li>
+
+                        <ul className="space-y-3 text-sm">
+                            <li className="flex items-center gap-3">
+                                <FaVoicemail className="text-primary text-lg" />
+                                <a href="mailto:web.ebrahimali@gmail.com">web.ebrahimali@gmail.com</a>
+                            </li>
+
+                            <li className="flex items-center gap-3">
+                                <FaMicrophone className="text-primary text-lg" />
+                                <span>+880 1771-899062</span>
+                            </li>
+
+                            <li className="flex items-center gap-3">
+                                <FaCreativeCommonsSamplingPlus className="text-primary text-lg" />
+                                <span>Rajshahi, Bangladesh</span>
+                            </li>
                         </ul>
                     </div>
 
                     {/* Socials */}
                     <div>
                         <h3 className="font-semibold text-lg mb-3">Follow Us</h3>
-                        <div className="flex items-center space-x-4">
 
+                        <div className="flex items-center gap-4">
                             <a
-                                href="#"
-                                className="text-2xl hover:text-primary transition"
+                                href="https://facebook.com/ebrahim2355"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-2 rounded-full bg-base-300 hover:bg-primary hover:text-white transition"
+                                aria-label="Facebook"
                             >
-                                <i className="bi bi-facebook"></i>
+                                <FaFacebookF className="text-lg" />
                             </a>
 
                             <a
-                                href="#"
-                                className="text-2xl hover:text-primary transition"
+                                href="https://instagram.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-2 rounded-full bg-base-300 hover:bg-primary hover:text-white transition"
+                                aria-label="Instagram"
                             >
-                                <i className="bi bi-instagram"></i>
+                                <FaInstagram className="text-lg" />
                             </a>
 
                             <a
-                                href="#"
-                                className="text-2xl hover:text-primary transition"
+                                href="https://linkedin.com/in/ebrahim235"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-2 rounded-full bg-base-300 hover:bg-primary hover:text-white transition"
+                                aria-label="LinkedIn"
                             >
-                                <i className="bi bi-linkedin"></i>
+                                <FaLinkedinIn className="text-lg" />
                             </a>
 
                             <a
-                                href="#"
-                                className="text-2xl hover:text-primary transition"
+                                href="https://x.com/ebrahim2355"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-2 rounded-full bg-base-300 hover:bg-primary hover:text-white transition"
+                                aria-label="X"
                             >
-                                {/* New X Logo instead of Twitter bird */}
-                                <svg
-                                    width="22"
-                                    height="22"
-                                    viewBox="0 0 1200 1227"
-                                    fill="currentColor"
-                                >
-                                    <path d="M714 519l416-519H993L691 428 434 0H0l446 648L0 1227h183l312-446 293 446h434L714 519z" />
-                                </svg>
+                                <svg width="15" height="15" viewBox="0 0 1200 1227" fill="currentColor" > <path d="M714 519l416-519H993L691 428 434 0H0l446 648L0 1227h183l312-446 293 446h434L714 519z" /> </svg>
                             </a>
-
                         </div>
                     </div>
                 </div>
