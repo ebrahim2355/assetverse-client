@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import useRole from "../../hooks/useRole";
-import { FaCreativeCommonsSamplingPlus, FaFacebookF, FaInstagram, FaLinkedinIn, FaMicrophone, FaVoicemail } from "react-icons/fa";
+import { FaCreativeCommonsSamplingPlus, FaEnvelope, FaFacebookF, FaInstagram, FaLinkedinIn, FaMicrophone } from "react-icons/fa";
 
 export default function Footer() {
     const { user } = useAuth();
@@ -66,13 +66,12 @@ export default function Footer() {
                     </div>
 
                     {/* Contact */}
-                    {/* Contact */}
                     <div>
                         <h3 className="font-semibold text-lg mb-3">Contact</h3>
 
                         <ul className="space-y-3 text-sm">
                             <li className="flex items-center gap-3">
-                                <FaVoicemail className="text-primary text-lg" />
+                                <FaEnvelope className="text-primary text-lg" />
                                 <a href="mailto:web.ebrahimali@gmail.com">web.ebrahimali@gmail.com</a>
                             </li>
 

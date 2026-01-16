@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate, Link } from "react-router";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 import useAuth from "../../hooks/useAuth";
-import { ErrorMsg } from "../../components/ErrorMsg/ErrorMsg";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -23,6 +22,32 @@ export default function Login() {
                 toast.error("Error! Could't log you in! Try again please.")
             );
     }
+
+    const handleDemoEmployeeLogin = async () => {
+        try {
+            await signInUser(
+                "char@li.com",
+                "char12"
+            );
+            toast.success("Logged in as Demo Employee");
+            navigate("/dashboard");
+        } catch {
+            toast.error("Demo login failed");
+        }
+    };
+
+    const handleDemoHRLogin = async () => {
+        try {
+            await signInUser(
+                "hr@testcompany.com",
+                "testCompany1"
+            );
+            toast.success("Logged in as Demo HR");
+            navigate("/dashboard");
+        } catch {
+            toast.error("Demo login failed");
+        }
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center px-4">
@@ -60,6 +85,24 @@ export default function Login() {
 
                     <button className="btn btn-primary w-full">Login</button>
                 </form>
+
+                <div className="flex flex-col gap-3 mt-4">
+                    <button
+                        type="button"
+                        onClick={handleDemoEmployeeLogin}
+                        className="btn btn-outline w-full"
+                    >
+                        Demo Login as Employee
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={handleDemoHRLogin}
+                        className="btn btn-outline w-full"
+                    >
+                        Demo Login as HR
+                    </button>
+                </div>
 
                 <SocialLogin></SocialLogin>
 
